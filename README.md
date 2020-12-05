@@ -12,7 +12,7 @@
   * having reasonable descriptions
   * suggesting quick fixes
   * referencing to security standards
-* Has zero setup, no dependencies: Bash 4.2, SSH
+* Agent less scanner with zero setup, no dependencies: Bash 4.2, SSH
 * Scales up to at least 2000 hosts * 50 scanners ~ 100k findings
 
 Policies are implemented by [small shell snippets](http://lzone.de/polscan/) and thus polscan is easily extensible by your own specific policies. To make it easy to use it comes with host discovery solutions for typical automation setups (Chef, Puppet, MCollective).
@@ -24,26 +24,29 @@ Detecting automation issues...
 
 Product     | Host Discovery | Resource Coverage
 ----------- | -------------- | -----------------
+kube-bench  | y              | kube-bench results per host
 Puppet2/3/4 | y              | Mounts, Users, SSH Keys, ulimit, sysctl, sudoers, 3rd party APT repos, Crons 
 Chef        | y              | %
 Ansible     | y              | %
 SaltStack   | y              | %
-Mcollective | y | %
+Mcollective | y              | %
 
 Detecting package issues...
 
 Providers | Detection | Upgrade Check | Error Check | CVE Check
 --------- | --------- | ------------- | ----------- | ---------
+Helm2     | yes       | no            |
 apt       | %         | yes           | yes
 dpkg      | %         | %             | yes         | yes (debsecan)
 Gem       | yes       | yes           | 
 PECL      | yes       | yes           | 
 PIP       | yes       | yes           | 
-CPAN      | no         | 
-NPM       | no         | 
+CPAN      | no        | 
+NPM       | no        | 
 
 Collects inventories for
 
+* kubernetes clusters (node count, sizing)
 * NTP / DNS Servers
 * OS Releases,  Kernel Version
 * External IPs, IPv6 Adresses
